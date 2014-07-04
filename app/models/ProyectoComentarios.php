@@ -9,5 +9,11 @@ class ProyectoComentarios extends Eloquent {
 	 */
 	protected $table = 'proyecto_comentarios';
 	
+	//Una comentario esta asociado a un proyecto
+	public function proyecto()
+	{
+		return $this->hasOne('Proyectos','id','proyecto_id')->first();
+	}
+	
 	
 }

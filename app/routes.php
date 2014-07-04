@@ -51,7 +51,7 @@ Route::group(array('prefix'=>'admin'), function(){
 		return Redirect::to('admin/proyectos');
 	});
 	Route::controller('proyectos', 'admin_ProyectosController');
-	//Route::get('proyectos', 'admin_IndexController@getIndex');
+	Route::controller('comentarios', 'admin_ComentariosController');
 	
 	
 	

@@ -82,7 +82,7 @@
 	@parent
     
     <!-- Para JAlerts -->
-    <?php /*?><script src="{{ asset('js/jqueryAlerts/jquery-1.8.2.js') }}" type="text/javascript"></script><?php */?>
+    <script src="{{ asset('js/jqueryAlerts/jquery-1.8.2.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/jqueryAlerts/jquery.ui.draggable.js') }}" type="text/javascript"></script>
     <!-- Core files -->
     <script src="{{ asset('js/jqueryAlerts/jquery.alerts.js') }}" type="text/javascript"></script>
@@ -330,88 +330,134 @@
     
     <!-- Lightbox agregar comentarios -->
     <script type="text/javascript" src="{{ asset('js/jquery.lightbox_me.js') }}"></script>
-    <script type="text/javascript">
-	$(document).ready(function() {
-		$('.lightbox_save_com').click(function(e) {
-			
-			var id=$(this).data('id');
-			
-			$('#resultado_mensaje').html('');
-			$('#com_orden_id').val(id);
-			$('#span_txt').html(id);
-			
-			$('#div_frm_com').lightbox_me({
-				centered: true, 
-				onLoad: function() { 
-					$('#div_frm_com').find('input:first').focus();
-				}
-			});
-			e.preventDefault();
-			
-		});
-	});
-	</script>
+    
     <!-- Lightbox agregar comentarios -->
     
     <script type="text/javascript">
-	function saveComentario(){
-				
-		jConfirm('&iquest;Est&aacute;s seguro de Guardar el Comentario?', 'ALERTA', function(r){
-			if(r){
-				
-				var orden_id = $("#com_orden_id").val();
-				var comentario_id = $("#comentario_id").val();
-				var comentario = $("#comentario").val();
-				
-				var datos="orden_id="+orden_id+"&comentario_id="+comentario_id+"&comentario="+comentario;
-				
-				$.ajax({
-					type: "POST",
-					url: '{{ url("admin/ventas/save-com") }}',
-					data:datos,
-					dataType: 'json',
-					beforeSend: function(){
-						//
-						$("#resultado_mensaje").html('');
-						
-						if (typeof spinner != "undefined"){
-							spinner.stop();
+	$(document).ready(function(e) {
+		
+		//Actualizar Status
+		$('.save_status').click(function(e){
+			e.preventDefault();
+			
+			var com_id = $(this).data('com_id');
+			var nombre = $(this).data('nombre');
+			
+			var status = $('#status_id'+com_id).val();
+			
+			jConfirm('&iquest;Est&aacute;s seguro de Modificar El status al comentario <strong>'+nombre+'</strong>?', 'ALERTA', function(r){
+				if(r){
+					
+					
+					var datos="com_id="+com_id+"&nombre="+nombre+"&status="+status;
+					
+					$.ajax({
+						type: "POST",
+						url: '{{ url("admin/comentarios/ajax-status") }}',
+						data:datos,
+						dataType: 'json',
+						beforeSend: function(){
+							//							
+							/*if (typeof spinner != "undefined"){
+								spinner.stop();
+							}
+							spinner = new Spinner(optsSpin).spin(document.getElementById("resultado_mensaje"));*/
+							
+						},
+						error: function(datos){
+							
+							/*spinner.stop();
+							alert('Error al guardar el Comentario');*/
+							//return false;
+						},
+						success:function(datos){
+							//spinner.stop();
+							if( datos.success ){
+								
+								// Animation complete.
+								$('#ajax_totalPendientes').html(function(){
+									$(this).css({opacity: 0, visibility: "visible"}).animate({opacity: 1},'slow');
+									return datos.totalPendientes;
+								});							
+								
+							}
+							
+							jAlert(datos.msg, 'MENSAJE');
+							
 						}
-						spinner = new Spinner(optsSpin).spin(document.getElementById("resultado_mensaje"));
-						
-					},
-					error: function(datos){
-						$("#resultado_mensaje").html('');
-						$("#comentario").val('');
-						spinner.stop();
-						alert('Error al guardar el Comentario');
-						//return false;
-					},
-					success:function(datos){
-						spinner.stop();
-						
-						$('#resultado_mensaje').html(datos.msg);
-						
-						if( datos.success ){
-							$('#ajax_com_orden'+orden_id).html(datos.salida);
-						}
-						
-						$("#comentario").val('');
-						
-					}
-				});// fin de ajax 
-				
-				
-				
-				
-			}
-			else{
-				return false;
-			}		
+					});// fin de ajax 
+					
+					
+					
+					
+				}
+				else{
+					return false;
+				}		
+			});
+			
 		});
-		 
-	}
-	
+		
+		
+		// Eliminar Registro
+        $('.eliminar').click(function(e){
+			e.preventDefault();
+			
+			var com_id = $(this).data('com_id');
+			var nombre = $(this).data('nombre');
+			
+			jConfirm('&iquest;Est&aacute;s seguro de Eliminar el Comentario <strong>'+nombre+'</strong>?', 'ALERTA', function(r){
+				if(r){
+					
+					
+					var datos="com_id="+com_id+"&nombre="+nombre;
+					
+					$.ajax({
+						type: "POST",
+						url: '{{ url("admin/comentarios/ajax-delete") }}',
+						data:datos,
+						dataType: 'json',
+						beforeSend: function(){
+							//							
+							/*if (typeof spinner != "undefined"){
+								spinner.stop();
+							}
+							spinner = new Spinner(optsSpin).spin(document.getElementById("resultado_mensaje"));*/
+							
+						},
+						error: function(datos){
+							
+							/*spinner.stop();
+							alert('Error al guardar el Comentario');*/
+							//return false;
+						},
+						success:function(datos){
+							//spinner.stop();
+							if( datos.success ){
+								
+								$('#fila'+datos.com_id).fadeOut("slow", function() {
+									$('#fila'+datos.com_id).remove();
+								});
+								
+								
+							}
+							
+							jAlert(datos.msg, 'MENSAJE');
+							
+						}
+					});// fin de ajax 
+					
+					
+					
+					
+				}
+				else{
+					return false;
+				}		
+			});
+			
+		});
+    });	
 	</script>
     
     <?php /*?><script type="text/javascript">

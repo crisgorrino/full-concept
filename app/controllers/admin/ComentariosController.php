@@ -72,185 +72,132 @@ class admin_ComentariosController extends BaseController {
 		return $this->getIndex();
 	}
 	
-	//Editar Registro
-	public function getEdit($id=null)
+	//
+	public function getAjax_delete()
 	{
+		return Redirect::to('admin/comentarios');
+	}
+	
+	//Eliminar
+	public function postAjax_delete()
+	{
+		if( Request::ajax() ){
+					
+			$msg='';
+			
+			$com_id 	= Input::get('com_id');
+			$nombre	= Input::get('nombre');
+			
+			$comentario = ProyectoComentarios::find($com_id);
+			
+			//retornar error si no existe registro
+			if( $comentario ){
+				
+				if( $comentario->delete() ){
+					
+					$msg.="<p>Registro <strong>".$nombre."</strong> Eliminado correctamente.</p>";
+					
+					return Response::json(
+						array(
+							'success' => true,
+							'com_id'	  => $com_id,
+							'msg'	  => $msg,
+						)
+					);
+					
+				}
+				else{
+					
+					$msg.="<p>Error: <b>No se Elimin&oacute; el Registro ".$nombre." Intenta nuevamente.</b></p>";
+							
+					return Response::json(
+						array(
+							'success' => false,
+							'com_id'	  => $com_id,
+							'msg'	  => $msg,
+						)
+					);
+					
+				}
 		
-		/*if( empty($id) ){
-			return Redirect::to('admin/proyectos');
-		}*/
-		
-		$path="'".$this->pathUpload."proy_id_',id,'/'";
-		
-		$proyecto = Proyectos::select('*', DB::raw("CONCAT(".$path.") AS path") )->find($id);
-		
-		/*if( !$proyecto ){
-			return Redirect::to('admin/proyectos');
-		}*/
-		
-		
-		return View::make('admin.proyectos.proyecto-edit', 
-					array('proyecto'		=>$proyecto)
+			}			
+			else{
+				$msg.="<p>Error: <b>No existe el Registro ".$nombre.".</b></p>";
+						
+				return Response::json(
+					array(
+						'success' => false,
+						'com_id'	  => $com_id,
+						'msg'	  => $msg,
+					)
 				);
+	
+			}
+				
+		
+		}
 		
 		
 	}
 	
-	//Guardar Proyecto
-	public function postEdit()
+	//
+	public function getAjax_status()
 	{
-		$this->beforeFilter('csrf', array('on' => 'post'));
-		
-		//reglas de validacion
-		$rules = array(
-			'titulo' 		=> 'required|max:255',
-			'concepto' 		=> 'required|max:5000',
-			'descripcion' 	=> 'required|max:5000',
-		);
-
-		$validation = Validator::make(Input::all(), $rules);
-		if( $validation->fails() ){
-			//Enviar a la vista anterior con los errores encontrados
-			return Redirect::back()->withInput()->withErrors($validation);
-		}
-		
-		$msg='';
-		
-		$nameArchivoOrigen='';
-		
-		//Si existe el ID verificar si existe el registro en la BD
-		$p_id=Input::get('id', 0);
-		
-		$proyecto = Proyectos::find($p_id);
-		
-		//Si NO se encontro registro entonces insertar, caso contrario modificar
-		if( !$proyecto ){
-			//Insert			
-			$proyecto = new Proyectos;//instancia de modelo
-		}
+		return Redirect::to('admin/comentarios');
+	}
+	
+	//Modificar Status
+	public function postAjax_status()
+	{
+		if( Request::ajax() ){
+					
+			$msg='';
+			
+			$com_id 	= Input::get('com_id');
+			$nombre		= Input::get('nombre');
+			$status		= Input::get('status');
+			
+			$comentario = ProyectoComentarios::find($com_id);
+			
+			//retornar error si no existe registro
+			if( $comentario ){
 				
-		$proyecto->titulo 		= Input::get('titulo');
-		$proyecto->concepto 	= Input::get('concepto');
-		$proyecto->descripcion 	= Input::get('descripcion');		
+				$comentario->status_id=$status;
+				
+				if( $comentario->save() ){
+					
+					//contar el numero de registros pendientes
+					$comPendientes =ProyectoComentarios::select( DB::raw('COUNT(*) AS total') )->where('status_id', '=', '0')->first();
+					
+					$msg.="<p>Status <strong>".$nombre."</strong> Guardado.</p>";
+					
+					return Response::json(
+						array(
+							'success' => true,
+							'com_id'  => $com_id,
+							'msg'	  => $msg,
+							'totalPendientes'	=> $comPendientes->total,
+						)
+					);
+					
+				}
 		
-		//Guardar el registro
-		if( $proyecto->save() ){
-			
-			$p_id = $proyecto->id;
-			
-			$msg.="<p><strong>Registro Actualizado</strong></p>";
+			}			
+			else{
+				$msg.="<p>Error: <b>No existe el Registro ".$nombre.".</b></p>";
 						
-			//Si existe archivo de logo
-			if( Input::hasFile('logo') ){
-				
-				//Path
-				$path=public_path().'/'.$this->pathUpload.'proy_id_'.$p_id.'/';
-				
-				//Eliminar carpeta si existe
-				if ( File::exists($path) ){
-					File::deleteDirectory($path);
-				}
-							
-				$inputFile=Input::file('logo');//Input del formulario
-				$inputPath=$inputFile->getRealPath();
-				
-				$pos=strrpos($inputFile->getClientOriginalName(), '.');
-				$inputName=substr($inputFile->getClientOriginalName(), 0, $pos);
-				$inputExt=substr(strrchr($inputFile->getClientOriginalName(),'.'),1);
-				
-				////////#####  Upload File #####////////
-				//Instanciar clase para subir archivo(s)
-				$upload = new classUpload\upload;
-				$upload->upload($inputPath, 'es_ES');
-				
-				//Nuevo nombre de archivo
-				$upload->file_new_name_body=$inputName;
-				$upload->file_new_name_ext=$inputExt;
-				//Maximo tamaño del archivo
-				$upload->file_max_size = '10485760'; //10MB=10485760 / 5MB=5242880  / 1KB=1024
-				//Extensiones permitidas
-				$upload->allowed = array('image/png','image/jpg', 'image/jpeg');
-				//Maximo de pixeles de la imagen, si es mayor no se carga
-				$upload->image_max_width 	= 10000;
-				$upload->image_max_height 	= 10000;
-				
-				$nameArchivoOrigen='';
-				if ($upload->uploaded) {
-					
-					$upload->file_safe_name=true;
-					//$upload->file_name_body_pre = 'redim_';
-					$upload->image_resize = true;
-					$upload->image_convert = 'png';
-					$upload->image_x = 153;
-					$upload->image_y = 91;
-					//$upload->image_ratio_y = true;
-					$upload->image_ratio_crop      = true;
-					//$upload->image_ratio_fill      = true;
-					$upload->Process($path);
-					$nameArchivoOrigen=$upload->file_dst_name_body.".".$upload->file_dst_name_ext;
-					if ($upload->processed) {
-												  
-						//###################    ##################//		
-						if( !empty($nameArchivoOrigen) ){
-							
-							
-							//guardar Registro
-							//$proyecto = Proyectos::find($p_id);
-							
-							$proyecto->logo = $nameArchivoOrigen;
-								
-							if($proyecto->save()){
-								$msg.='<p>Archivo <b>'.$nameArchivoOrigen.'</b> copiado</p>';
-							}
-							else{
-								$msg.="<p>Error: <b>Registro no guardado</b></p>";
-							}
-							
-							
-						}
-						// $upload->Clean();
-					
-					} else {
-						$msg.='<p>Error : <b>'.$upload->error.'</b></p>';
-					}
-					
-					
-				} 
-				else{
-					$msg.='<p>Error : <b>No se puede cargar el Archivo</b></p>';
-				}
-				
+				return Response::json(
+					array(
+						'success' => false,
+						'com_id'	  => $com_id,
+						'msg'	  => $msg,
+					)
+				);
+	
 			}
-			
+				
+		
 		}
-		else{
-			$msg.='<p>Error : <b>No se pudo guardar el registro</b></p>';
-		}
-		
-		/////////////////////////////////////////////////
-		
-		//
-		/*if( empty($id) ){
-			return Redirect::to('admin/proyectos');
-		}*/
-		
-		if( !empty($msg) ){
-			Session::flash('msg', $msg);
-		}
-		
-		if( !empty($p_id) ){
-			return Redirect::to('admin/proyectos/edit/'.$p_id);
-		}
-		else{
-			return Redirect::back();
-		}
-		//$path="'".$this->pathUpload."proy_id_',id,'/'";
-		
-		//$proyecto = Proyectos::select('*', DB::raw("CONCAT(".$path.") AS path") )->find($p_id);
-		
-		/*return View::make('admin.proyectos.proyecto-edit', 
-					array('proyecto'		=>$proyecto)
-				)->with('msg', $msg);*/
 		
 		
 	}

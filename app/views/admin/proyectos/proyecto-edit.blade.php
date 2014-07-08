@@ -7,22 +7,22 @@
 @section('content-mast')
 	
     <!--detalle-->
-    <section  class="cont-shadow">
-        <section class="proyectos-det-cont cf ">
+    <section  class="cont-shadow ">
+        <section class="proyectos-det-cont cf  ">
             @if( Session::has('msg') )
                 <p>{{ Session::get('msg') }}</p>
             @endif
-            <div class="det-image-container <?php /*?>cycle-slideshow<?php */?>">
+            <div class="det-image-container proyecto-edit<?php /*?>cycle-slideshow<?php */?> ">
             	@if( !isset($proyecto->id) )
-                    <h3>Para agregar im&aacute;genes al Slide primero guarda el registro</h3>
+                    <h2>Para agregar im&aacute;genes al Slide primero guarda el registro</h2>
                     <img src="{{ asset('img/detail_nodisponible.jpg') }}" alt="Imagen no disponible" />
                 @else
-                    <h3>Administrar Im&aacute;genes de SlideShow</h3>
+                    <h2>Administrar Im&aacute;genes de SlideShow</h2>
                     <div id="ajax_msg_slide"></div>
                     <p>
                         <form name="frm_add_slide" id="frm_add_slide" method="post" enctype="multipart/form-data" class="cf">
                             <input type="hidden" name="p_id" class="validate[required]" value="{{ $proyecto->id }}" />
-                            <label>Imagen Slide (619px X 471px)</label><br />
+                            <label class="yellow">Imagen Slide (619px X 471px)</label><br />
                             <input type="file" name="slide" id="slide" class="validate[required]" />
                             <p><input type="submit" class="save_img_slide" value="Subir" /><span id="ajax_loader_slide"></span></p>
                         </form>
@@ -63,7 +63,7 @@
                     <input type="file" name="logo" id="logo" class="handle-input" /><br />
                     </p>
                     <p><textarea name="descripcion" placeholder="Descripci&oacute;n del proyecto" class="handle-input validate[required]">{{{ isset($proyecto->descripcion)?$proyecto->descripcion:'' }}}</textarea></p>
-                    <a href="#" class="compartir-detalle right save"><span>GUARDAR</span></a>
+                    <a href="#" class="compartir-detalle left save"><span>GUARDAR</span></a>
                     &nbsp;&nbsp;
                     <a href="{{ url('admin/proyectos') }}" class="compartir-detalle right"><span>REGRESAR</span></a>&nbsp;&nbsp;
                 </form>
@@ -79,12 +79,12 @@
             <h3>Para agregar im&aacute;genes de Mosaico primero guarda el registro</h3>
         @else
             
-            <h3>Administrar Im&aacute;genes para MOSAICO</h3>
+            <h3 class="yellow">Administrar Im&aacute;genes para MOSAICO</h3>
             <div id="ajax_msg_mosaico"></div>
             <form name="frm_add_img" id="frm_add_img" method="post" enctype="multipart/form-data" class="cf">
                 <input type="hidden" name="p_id" class="validate[required]" value="{{ $proyecto->id }}" />
-                <p><label>Imagen Mosaico (240xp X 240px, extension JPG)</label><br /><input type="file" name="mosaico" id="mosaico" class="validate[required]" /></p>
-                <p><label>Logo Transparencia Mosaico (153px X 91px, extension PNG)</label><br /><input type="file" name="mosaico_logo" id="mosaico_logo" class="validate[required]" /><br /></p>
+                <p ><label class="yellow">Imagen Mosaico (240xp X 240px, extension JPG)</label><br /><input type="file" name="mosaico" id="mosaico" class="validate[required]" /></p>
+                <p><label class="yellow">Logo Transparencia Mosaico (153px X 91px, extension PNG)</label><br /><input type="file" name="mosaico_logo" id="mosaico_logo" class="validate[required]" /><br /></p>
                 <p><input type="submit" class="save_img_mosaico" value="Agregar" /><span id="ajax_loader_add"></span></p>
             </form>
             

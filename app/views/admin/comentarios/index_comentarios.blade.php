@@ -15,7 +15,7 @@
     <!--MAST-->
     <section  class="cont-shadow">
         <section class="proyectos-det-cont cf ">
-        	<h2>Comentarios</h2>
+        	<h2 class="yellow">Comentarios</h2>
             <form action="" method="post" name="buscador" id="buscador" onsubmit="$.trim($('#search').val());">
                 <?php /*?><table class="admintable" border="0" width="75%" style="border:solid 1px #CCC;" align="center">
                     
@@ -56,7 +56,7 @@
                 <table class="admintable" align="center" border="0" width="75%" cellspacing="0" cellpadding="0">
                 <tbody> 
                     <tr>
-                        <th width="1%" align="right" nowrap="nowrap">Buscar en:&nbsp;</th>
+                        <th width="1%" align="right" nowrap="nowrap" class="yellow">Buscar en:&nbsp;</th>
                         <td align="left">
                             <input type="text" name="search" id="search" value="{{ Input::get('search', '') }}" /><br>
                         </td>

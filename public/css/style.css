@@ -65,6 +65,7 @@
 .left{float:left;}
 .right{float:right;}
 .inline{display: inline-block; vertical-align: middle;}
+.yellow{color:#d7df21;}
 
 /*--body--*/
 html,body{font-size: 100%; }
@@ -155,6 +156,21 @@ footer a:hover{color:#d7df21;}
 .admin-h1{ font-family: 'texgy-regular'; font-weight:normal; color:#d7df21; }
 .admin-login input[type='text'], .admin-login input[type='password']{padding:0px 3px; display: inline-block; }
  .admin-login input[type='submit']{background-color:#d7df21; border:0;}
+ 
+ .eliminar_img, .save_img_slide, .save_img_mosaico {display:block; text-align: center; background-color:#d7df21; margin:3% 0 0 0; border:none;}
+ .eliminar{color:#fff;}
+ .btn{text-align: center; background-color:#d7df21; border:none;}
+
+/*---ESTILOS ADMIN---*/
+.admin{}
+.admin h2{color:#d7df21; text-align: center;}
+.agregar-proy{color:#fff;}
+.busrcar-proy{color:#fff;}
+
+.proyecto-edit{}
+.proyecto-edit h2{color:#d7df21;}
+
+
 
 /*--MEDIA QUERIES--*/
 /*--phones--*/

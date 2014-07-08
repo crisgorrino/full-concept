@@ -4,7 +4,7 @@ class webFullConceptTableSeeder extends Seeder {
     public function run()
     {
         
-        DB::table('fc_proyecto_comentario_status')->insert(array(
+        DB::table('proyecto_comentario_status')->insert(array(
                     
             array(
                 'id' => 0,
@@ -25,7 +25,7 @@ class webFullConceptTableSeeder extends Seeder {
             ),
 
         ));
-        DB::table('fc_proyecto_comentarios')->insert(array(
+        DB::table('proyecto_comentarios')->insert(array(
                     
             array(
                 'id' => 43,
@@ -532,7 +532,7 @@ class webFullConceptTableSeeder extends Seeder {
             ),
 
         ));
-        DB::table('fc_proyecto_imagenes')->insert(array(
+        DB::table('proyecto_imagenes')->insert(array(
                     
             array(
                 'id' => 9,
@@ -655,7 +655,7 @@ class webFullConceptTableSeeder extends Seeder {
             ),
 
         ));
-        DB::table('fc_proyecto_slideshow')->insert(array(
+        DB::table('proyecto_slideshow')->insert(array(
                     
             array(
                 'id' => 1,
@@ -779,7 +779,7 @@ class webFullConceptTableSeeder extends Seeder {
             ),
 
         ));
-        DB::table('fc_proyectos')->insert(array(
+        DB::table('proyectos')->insert(array(
                     
             array(
                 'id' => 1,
@@ -847,7 +847,7 @@ class webFullConceptTableSeeder extends Seeder {
             ),
 
         ));
-        DB::table('fc_user_nivel_acceso')->insert(array(
+        DB::table('user_nivel_acceso')->insert(array(
                     
             array(
                 'id' => 1,
@@ -899,7 +899,7 @@ class webFullConceptTableSeeder extends Seeder {
             ),
 
         ));
-		DB::table('fc_users')->insert(
+		DB::table('users')->insert(
                     
             array(
                 'id' => 1,

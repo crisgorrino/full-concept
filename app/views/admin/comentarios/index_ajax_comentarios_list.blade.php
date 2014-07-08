@@ -9,7 +9,7 @@
         <?php /*?><p>&nbsp;</p>
         <h3>Total de Registros: <?php echo $registros; ?></h3><?php */?>
         
-        <h3>Hay <span id="ajax_totalPendientes">{{ $totalPendientes or '0' }}</span> Registro(s) Pendiente(s)</h3>
+        <h3 class="yellow">Hay <span id="ajax_totalPendientes">{{ $totalPendientes or '0' }}</span> Registro(s) Pendiente(s)</h3>
         <table class="adminlist tablesorter tabla_historial" id="admintbl" cellpadding="5" width="100%">
             <thead>
                 <tr class="titulo" id="chkrowAll">

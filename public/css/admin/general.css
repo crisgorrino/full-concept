@@ -336,17 +336,17 @@ table.adminlist thead th img { vertical-align: middle; }
 
 table.adminlist tbody th { font-weight: bold; }
 
-table.adminlist tbody tr			{ background-color: #fff;  text-align: left; }
-table.adminlist tbody tr.row1 	{ background: #f9f9f9; border-top: 1px solid #fff; }
+table.adminlist tbody tr			{ background-color: #000;  text-align: left; }
+table.adminlist tbody tr.row1 	{ background: #000; border-top: 1px solid #fff; }
 
 table.adminlist tbody tr.row0:hover td,
-table.adminlist tbody tr.row1:hover td  { background-color: #ffa; color:#000; }
+table.adminlist tbody tr.row1:hover td  { background-color: #d7df21; color:#000; }
 
 table.adminlist tbody tr.row0.selectedRow td,
 table.adminlist tbody tr.row1.selectedRow td  { background-color: #ffa; }
 
-table.adminlist tbody tr td 	   { height: 25px; background: #404041; border: 1px solid #fff; color:#FFF; }
-table.adminlist tbody tr.row1 td { background: #404041; border-top: 1px solid #FFF; color:#fff; }
+table.adminlist tbody tr td 	   { height: 25px; background: #000; border: 1px solid #fff; color:#FFF; }
+table.adminlist tbody tr.row1 td { background: #000; border-top: 1px solid #FFF; color:#fff; }
 
 table.adminlist tfoot tr { text-align: center;  color: #333; }
 table.adminlist tfoot td,
@@ -542,9 +542,9 @@ table.adminlist tbody tr.visto td{
 .pagination-cont{ width:20%; text-align: right;}
 .pagination{list-style-type:none; margin:0; width:100%; padding:0;}
 .pagination li{display: inline-block; vertical-align: top; background-color:#ebebea; text-align: center; margin: 0 5px; padding:6px; border-radius:3px; width:1%;}
-.pagination li:first-of-type, .pagination li:last-of-type{background-color:#cecccc; color:#b23749} 
-.pagination li:first-of-type a, .pagination li:last-of-type a{ color:#b23749} 
-.pagination li.active{background-color:#b23749; color:#fff;}
+.pagination li:first-of-type, .pagination li:last-of-type{background-color:#d7df21; color:#000} 
+.pagination li:first-of-type a, .pagination li:last-of-type a{ color:#000} 
+.pagination li.active{background-color:#000; color:#fff;}
 .pagination li a{text-decoration: none; color:#7f7f7f; display: inline-block; width:100%; vertical-align: top;}
 .pagination li.active a{color:#fff;}
 .pagination li.disabled{opacity:.3;}
@@ -554,3 +554,4 @@ table.adminlist tbody tr.visto td{
 .admin{}
 .admin h2{color:#d7df21; text-align: center;}
 .agregar-proy{color:#fff;}
+.busrcar-proy{color:#fff;}

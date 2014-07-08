@@ -59,7 +59,7 @@
                 <table class="admintable" align="center" border="0" width="75%" cellspacing="0" cellpadding="0">
                 <tbody> 
                     <tr>
-                        <th width="1%" align="right" nowrap="nowrap">Buscar en:&nbsp;</th>
+                        <th width="1%" align="right" nowrap="nowrap" class="busrcar-proy">Buscar en:&nbsp;</th>
                         <td align="left">
                             <input type="text" name="search" id="search" value="{{ Input::get('search', '') }}" /><br>
                         </td>

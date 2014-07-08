@@ -14,10 +14,10 @@
 @section('content-mast')   
     <!--MAST-->
     <section  class="cont-shadow">
-        <section class="proyectos-det-cont cf ">
+        <section class="proyectos-det-cont cf  admin">
         	<h2>Proyectos</h2>
             <p>
-            	<a href="{{ url('admin/proyectos/edit') }}">Agregar Proyecto</a>
+            	<a href="{{ url('admin/proyectos/edit') }}" class="agregar-proy">Agregar Proyecto</a>
             </p>
             <form action="" method="post" name="buscador" id="buscador" onsubmit="$.trim($('#search').val());">
                 <?php /*?><table class="admintable" border="0" width="75%" style="border:solid 1px #CCC;" align="center">

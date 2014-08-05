@@ -246,6 +246,107 @@ class admin_ProyectosController extends BaseController {
 		
 	}
 	
+	//
+	//Eliminar Proyecto
+	public function getAjax_delete_proyecto(){
+		return Redirect::to('admin/proyectos');
+	}
+	
+	//Eliminar Proyecto
+	public function postAjax_delete_proyecto(){
+		
+		if( Request::ajax() ){
+			
+			$msg = '';
+			$bandera = false;
+			
+			$titulo	= Input::get('titulo');
+			
+			if( Input::has('p_id') ){
+				
+				$p_id = Input::get('p_id');
+				
+				$proyecto = Proyectos::find( $p_id );
+			
+				if( $proyecto ){
+					
+					if( $proyecto->delete() ){
+						$msg.='<p>Proyecto '.$titulo.' Eliminado</p>';
+						//eliminar comentarios
+						$comentarios = ProyectoComentarios::where('proyecto_id', '=', $p_id);
+						
+						if( $comentarios ){
+							if( $comentarios->delete() ){
+								$msg.='<p>Comentarios Eliminados</b></p>';
+							}
+							else{
+								$msg.='<p>Error: <b>No se Eliminaron los comentarios</b></p>';
+							}
+						}
+						else{
+							$msg.='<p>El proyecto '.$titulo.' no ten&iacute;a comentarios</p>';
+						}
+						
+						//eliminar imagenes slideshow
+						$slideshow = ImagenesSlideshow::where('proyecto_id', '=', $p_id);
+						
+						if( $slideshow ){
+							if( $slideshow->delete() ){
+								$msg.='<p>Im&aacute;genes de Slideshow Eliminadas</b></p>';
+							}
+							else{
+								$msg.='<p>Error: <b>No se Eliminaron las im&aacute;genes del Slideshow</b></p>';
+							}
+						}
+						else{
+							$msg.='<p>El proyecto '.$titulo.' no tiene im&aacute;genes Slideshow</p>';
+						}
+						
+						//eliminar imagenes mosaico
+						$imagenes_mosaico = ImagenesMosaico::where('proyecto_id', '=', $p_id);
+						
+						if( $imagenes_mosaico ){
+							if( $imagenes_mosaico->delete() ){
+								$msg.='<p>Im&aacute;genes de Mosaico Eliminadas</b></p>';
+							}
+							else{
+								$msg.='<p>Error: <b>No se Eliminaron las im&aacute;genes de Mosaico</b></p>';
+							}
+						}
+						else{
+							$msg.='<p>El proyecto '.$titulo.' no tiene im&aacute;genes de Mosaico</p>';
+						}
+												
+						$path = public_path().'/'.$this->pathUpload.'proy_id_'.$p_id.'/';
+						
+						if ( File::exists($path) ){
+							File::deleteDirectory($path);
+							$bandera=true;
+						}
+					}
+					
+					
+				}
+				else{
+					$msg.='<p>El proyecto ya no existe</p>';
+				}
+				
+			}
+			
+			return Response::json(
+				array(
+					'success' => $bandera,
+					'p_id'	  => $p_id,
+					'titulo'  => $titulo,
+					'msg'	  => $msg,
+				)
+			);
+			
+		}
+		
+		
+	}
+	
 	
 	//////////////////////////////
 	//////////// SLIDE ///////////

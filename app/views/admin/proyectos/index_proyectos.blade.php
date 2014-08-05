@@ -104,7 +104,7 @@
 	@parent
     
     <!-- Para JAlerts -->
-    <?php /*?><script src="{{ asset('js/jqueryAlerts/jquery-1.8.2.js') }}" type="text/javascript"></script><?php */?>
+    <script src="{{ asset('js/jqueryAlerts/jquery-1.8.2.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/jqueryAlerts/jquery.ui.draggable.js') }}" type="text/javascript"></script>
     <!-- Core files -->
     <script src="{{ asset('js/jqueryAlerts/jquery.alerts.js') }}" type="text/javascript"></script>
@@ -433,9 +433,69 @@
 		});
 		 
 	}
-	
 	</script>
     
+    <script type="text/javascript">
+	$(document).ready(function() {
+        // Eliminar Registro
+        $('.eliminar').click(function(e){
+			e.preventDefault();
+			
+			var p_id = $(this).data('p_id');
+			var titulo = $(this).data('titulo');
+			
+			jConfirm('&iquest;Est&aacute;s seguro de Eliminar el PROYECTO <strong>'+titulo+'</strong>?<br>Se eliminar&aacute;n:<ul><li>Todas las imagenes Slideshow</li><li>Todas las im&aacute;genes de Mosaico</li><li>Todos los Comentarios que tenga asociado</li></ul>', 'ALERTA', function(r){
+				if(r){
+					
+					
+					var datos="p_id="+p_id+"&titulo="+titulo;
+					
+					$.ajax({
+						type: "POST",
+						url: '{{ url("admin/proyectos/ajax-delete-proyecto") }}',
+						data:datos,
+						dataType: 'json',
+						beforeSend: function(){
+							//							
+							/*if (typeof spinner != "undefined"){
+								spinner.stop();
+							}
+							spinner = new Spinner(optsSpin).spin(document.getElementById("resultado_mensaje"));*/
+							
+						},
+						error: function(datos){
+							
+							/*spinner.stop();*/
+							alert('Error al eliminar el proyecto');
+							//return false;
+						},
+						success:function(datos){
+							//spinner.stop();
+							if( datos.success ){
+								
+								$('#fila'+datos.p_id).fadeOut("slow", function() {
+									$('#fila'+datos.p_id).remove();
+								});
+								
+							}
+							
+							jAlert(datos.msg, 'MENSAJE');
+							
+						}
+					});// fin de ajax 
+					
+					
+					
+					
+				}
+				else{
+					return false;
+				}		
+			});
+			
+		});
+    });
+    </script>
     <?php /*?><script type="text/javascript">
  	var entrar=true;
 	$(window).on('hashchange', function() {

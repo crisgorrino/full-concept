@@ -16,6 +16,7 @@
                     <th width="1%" class="title">Editar</th>
                     <th width="20%" class="title"><strong>Fecha:</strong></th>
                     <th width="40%" class="title"><strong>Proyecto:</strong></th>
+                    <th width="8%" class="title">&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +47,7 @@
                             </td>
                             <td align="center">{{ $p->titulo }}
                             </td>
+                            <td align="center"><a href="#" data-p_id="{{ $p->id }}" data-titulo="{{ $p->titulo}}" class="eliminar">Eliminar</a></td>
                         </tr>
                         <?php $k = 1 - $k; ?>
                     @endforeach

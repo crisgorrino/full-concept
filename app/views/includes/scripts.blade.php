@@ -6,7 +6,7 @@
     
     
     <div class="mapa" style="display:none;">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15139.806232592404!2d-103.5290529243117!3d18.4405084543862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x843a827cc3a0d353%3A0xfcd8425d202c021e!2sLa+Ticla!5e0!3m2!1sen!2s!4v1403041725971" width="600" height="450" frameborder="0" style="border:0"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3665.9575487398015!2d-106.4523579!3d23.244631799999997!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x869f54bb56027bfd%3A0xb03f282b73d3571b!2sAv+Camar%C3%B3n+S%C3%A1balo+333%2C+Las+Gaviotas%2C+82110+Mazatl%C3%A1n%2C+SIN!5e0!3m2!1sen!2smx!4v1407429691677" width="600" height="450" frameborder="0" style="border:0"></iframe>
     </div>
     <script type="text/javascript">
         $(document).ready(function(){

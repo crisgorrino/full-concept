@@ -172,8 +172,8 @@ class admin_ProyectosController extends BaseController {
 					//$upload->file_name_body_pre = 'redim_';
 					$upload->image_resize = true;
 					$upload->image_convert = 'png';
-					$upload->image_x = 153;
-					$upload->image_y = 91;
+					$upload->image_x = 240;
+					$upload->image_y = 240;
 					//$upload->image_ratio_y = true;
 					$upload->image_ratio_crop      = true;
 					//$upload->image_ratio_fill      = true;
@@ -764,8 +764,8 @@ class admin_ProyectosController extends BaseController {
 						$upload->file_name_body_pre = 'logo_';
 						$upload->image_resize = true;
 						$upload->image_convert = 'png';
-						$upload->image_x = 153;
-						$upload->image_y = 91;
+						$upload->image_x = 240;
+						$upload->image_y = 240;
 						//$upload->image_ratio_y = true;
 						$upload->image_ratio_crop      = true;
 						//$upload->image_ratio_fill      = true;

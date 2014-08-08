@@ -94,10 +94,10 @@
                         @if( is_file($i->path.$i->archivo) )
                             <div class="proy-home" id="img_{{ $i->id }}">
 
-                                    <img src="{{ url($i->path.$i->archivo) }}" alt="{{{ $i->proyecto()->titulo }}}" class="proy-img-home">
-                                    <?php /*?><div class="proy-home-hover">
-                                        <img src="{{ url($i->path.$i->logo) }}">
-                                    </div><?php */?>
+                                <img src="{{ url($i->path.$i->archivo) }}" alt="{{{ $i->proyecto()->titulo }}}" class="proy-img-home">
+                                <?php /*?><div class="proy-home-hover">
+                                    <img src="{{ url($i->path.$i->logo) }}">
+                                </div><?php */?>
                                 <div id="loader_del{{ $i->id }}">
                                     <a style="cursor:pointer;" data-id="{{ $i->id }}" onclick="delImg('{{ $i->id }}');" class="eliminar_img cf">Eliminar</a>
                                 </div>

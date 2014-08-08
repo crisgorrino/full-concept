@@ -59,7 +59,7 @@
                     <img src="{{ asset($proyecto->path.$proyecto->logo) }}" alt="torre-eMe" class="proyecto-logo">
                     @endif
                     <p><br />
-                    <label>Logo proyecto (PNG medida 153 X 91px):</label>
+                    <label>Logo proyecto (PNG medida 240 X 240px):</label>
                     <input type="file" name="logo" id="logo" class="handle-input" /><br />
                     </p>
                     <p><textarea name="descripcion" placeholder="Descripci&oacute;n del proyecto" class="handle-input validate[required]">{{{ isset($proyecto->descripcion)?$proyecto->descripcion:'' }}}</textarea></p>
@@ -83,13 +83,12 @@
             <div id="ajax_msg_mosaico"></div>
             <form name="frm_add_img" id="frm_add_img" method="post" enctype="multipart/form-data" class="cf">
                 <input type="hidden" name="p_id" class="validate[required]" value="{{ $proyecto->id }}" />
-                <p ><label class="yellow">Imagen Mosaico (240xp X 240px, extension JPG)</label><br /><input type="file" name="mosaico" id="mosaico" class="validate[required]" /></p>
-                <p><label class="yellow">Logo Transparencia Mosaico (153px X 91px, extension PNG)</label><br /><input type="file" name="mosaico_logo" id="mosaico_logo" class="validate[required]" /><br /></p>
+                <p ><label class="yellow">Imagen Mosaico (240xp X 240px, extensi&oacute;n JPG)</label><br /><input type="file" name="mosaico" id="mosaico" class="validate[required]" /></p>
+                <p><label class="yellow">Logo Transparencia Mosaico (240px X 240px, extensi&oacute;n PNG)</label><br /><input type="file" name="mosaico_logo" id="mosaico_logo" class="validate[required]" /><br /></p>
                 <p><input type="submit" class="save_img_mosaico" value="Agregar" /><span id="ajax_loader_add"></span></p>
             </form>
             
-            <div class="comentarios cf" id="ajax_imagenes">  
-                      
+            <div class="comentarios cf" id="ajax_imagenes">
                 @if( count($proyecto->imagenes_mosaico()) > 0 )
                     @foreach( $proyecto->imagenes_mosaico() as $i )
                         @if( is_file($i->path.$i->archivo) )

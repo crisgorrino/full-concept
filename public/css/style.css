@@ -234,7 +234,7 @@ and (min-width: 1600px) {
 .proy-home-hover {/*padding: 28.1% 0;}*/
 .proy-home {width: 12.5%;}
 .proy-home-hover {/*padding: 27.5% 0;*/}
-.proy-home-hover img{width:100%;}
+.proy-home-hover img{width:100%; display: block;}
 
 }
 
@@ -247,7 +247,7 @@ and (min-width:1824px) {
 .proyectos-cont {padding-top: 3%; width: 100%; }
 .proy-home {width: 12.5%;}
 .proy-home-hover {/*padding: 27.5% 0;*/}
-.proy-home-hover img{width:100%;}
+.proy-home-hover img{width:100%; display: block;}
 }
 
 

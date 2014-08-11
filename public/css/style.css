@@ -230,8 +230,11 @@ and (min-width: 1600px) {
 
 .menu-content {padding: 3% 25% 0;}
 .proyectos-cont {padding-top: 3%; width: 100%;}
-.proy-home {/*width: 12.5%;*/ width: 240px; height: 240px; }
-.proy-home-hover {/*padding: 28.1% 0;*/}
+/*.proy-home {/*width: 12.5%; width: 240px; height: 240px; }
+.proy-home-hover {/*padding: 28.1% 0;}*/
+.proy-home {width: 12.5%;}
+.proy-home-hover {/*padding: 27.5% 0;*/}
+.proy-home-hover img{width:100%;}
 
 }
 
@@ -242,9 +245,9 @@ and (min-width:1824px) {
 
 .menu-content {padding: 3% 25% 0;}
 .proyectos-cont {padding-top: 3%; width: 100%; }
-.proy-home {/*width: 12.5%;*/ width: 240px; height: 240px; }
+.proy-home {width: 12.5%;}
 .proy-home-hover {/*padding: 27.5% 0;*/}
-
+.proy-home-hover img{width:100%;}
 }
 
 
